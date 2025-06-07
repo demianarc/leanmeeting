@@ -124,16 +124,16 @@ const supervisorAgent = new RealtimeAgent({
 
 // demo flow
 await (async () => {
-  const session = new RealtimeSession({
-    apiKey: process.env.OPENAI_API_KEY,
+  const session = new RealtimeSession(chatAgent, {
     transport: 'websocket',
-    agent: chatAgent,
   });
 
   session.on('response.done', async (msg) => {
     console.log('assistant:', msg.text);
   });
 
-  await session.connect();
+  await session.connect({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
   console.log('Say "Start Stand-Up" to begin.');
 })();
